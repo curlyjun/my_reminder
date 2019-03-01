@@ -15,7 +15,7 @@ const TodoList = (props) => {
     }
     const list = props.list ? props.list.map((todoObj => {
         if (todoObj.group === props.groupName) {
-            return (<TodoEntry key={todoObj.id} text={todoObj.todo} id={todoObj.id}/>)
+            return (<TodoEntry key={todoObj.id} text={todoObj.todo} id={todoObj.id} fnCompleted = {props.fnCompleted}/>)
         }
     })) : undefined;
 

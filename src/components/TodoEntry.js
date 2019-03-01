@@ -2,8 +2,9 @@ import React from 'react'
 
 const TodoEntry = (props) => {
     const handle = (e) => {
-        console.log(e.target.checked)
-        console.log(props.id)
+        if (e.target.checked) {
+            props.fnCompleted(props.id);
+        }
     }
     return (
         <div>

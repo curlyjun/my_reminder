@@ -20,6 +20,7 @@ class App extends React.Component {
         this.handleAddGroup = this.handleAddGroup.bind(this);
         this.handleSaveGroup = this.handleSaveGroup.bind(this);
         this.changeGroup = this.changeGroup.bind(this);
+        this.completedUpdate = this.completedUpdate.bind(this);
     }
     listnum = 2;
     handleTodoFocus() {
@@ -49,7 +50,7 @@ class App extends React.Component {
         todoObj.id = this.state.nowId;
         todoObj.group = this.state.groupname;
         todoObj.todo = todo;
-        var clonedArray = JSON.parse(JSON.stringify(this.state.todoList));
+        let clonedArray = JSON.parse(JSON.stringify(this.state.todoList));
         clonedArray.push(todoObj);
         this.setState({
             todoList: clonedArray,
@@ -62,7 +63,19 @@ class App extends React.Component {
         })
     }
     completedUpdate(id){
-        var clonedArray = JSON.parse(JSON.stringify(this.state.todoList));
+        let clonedArray = JSON.parse(JSON.stringify(this.state.todoList));
+        let completedData = null;
+        for(let i = 0 ; i < clonedArray.length; i++){
+            if(clonedArray[i].id === id){
+                completedData = clonedArray.splice(i,1);
+                break;
+            }
+        }
+
+        this.setState({
+            todoList: clonedArray,
+            completedList: completedData
+        })
         
     }
     render() {
@@ -89,7 +102,7 @@ class App extends React.Component {
                         <button onClick={this.handleTodoFocus}>+</button>
                         </div>
                         <div>
-                            <TodoList MakeTodo={this.makeTodo} list={this.state.todoList} groupName={this.state.groupname}></TodoList>
+                            <TodoList MakeTodo={this.makeTodo} list={this.state.todoList} groupName={this.state.groupname} fnCompleted={this.completedUpdate}></TodoList>
                         </div>
                     </div>
                 </div>
