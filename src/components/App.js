@@ -4,6 +4,7 @@ import Search from './Search.js'
 import TodoList from './TodoList.js'
 import AddGroupBtn from './AddGroupBtn.js'
 import AddGroupInput from './AddGroupInput.js'
+import CompletedList from './CompletedList.js'
 
 class App extends React.Component {
     constructor(props) {
@@ -14,13 +15,15 @@ class App extends React.Component {
             nowId: 1,
             todoList: [],
             completedList: [],
-            toggle: false
+            toggle: false,
+            toggle_for_completed: false
         }
         this.makeTodo = this.makeTodo.bind(this);
         this.handleAddGroup = this.handleAddGroup.bind(this);
         this.handleSaveGroup = this.handleSaveGroup.bind(this);
         this.changeGroup = this.changeGroup.bind(this);
         this.completedUpdate = this.completedUpdate.bind(this);
+        this.toggleChange = this.toggleChange.bind(this);
     }
     listnum = 2;
     handleTodoFocus() {
@@ -42,7 +45,8 @@ class App extends React.Component {
         this.setState({
             groupname: gName,
             groups: clonedArray,
-            toggle: false
+            toggle: false,
+            
         })
     }
     makeTodo(todo) {
@@ -78,6 +82,11 @@ class App extends React.Component {
         })
         
     }
+    toggleChange(){
+        this.setState({
+            toggle_for_completed: !this.state.toggle_for_completed
+        })
+    }
     render() {
         return (
             <div className='container-fluid'>
@@ -86,8 +95,14 @@ class App extends React.Component {
                         <div >
                             <Search></Search>
                         </div>
+                        <div>
+                            <CompletedList 
+                            completedTogleChange = {this.toggleChange}></CompletedList>
+                        </div>
                         <div id="GList">
-                            <GroupList groups={this.state.groups} event={this.changeGroup}></GroupList>
+                            <GroupList 
+                                groups={this.state.groups}
+                                event={this.changeGroup}/>
                             {this.state.toggle && <AddGroupInput event={this.handleSaveGroup} num={this.listnum++}/>}
                         </div>
                         <div className='row align-items-end'>
@@ -102,7 +117,12 @@ class App extends React.Component {
                         <button onClick={this.handleTodoFocus}>+</button>
                         </div>
                         <div>
-                            <TodoList MakeTodo={this.makeTodo} list={this.state.todoList} groupName={this.state.groupname} fnCompleted={this.completedUpdate}></TodoList>
+                            {this.state.toggle_for_completed?<CompleteTodoList /> :<TodoList 
+                                MakeTodo={this.makeTodo}
+                                list={this.state.todoList}
+                                groupName={this.state.groupname}
+                                fnCompleted={this.completedUpdate} />}
+                            
                         </div>
                     </div>
                 </div>
