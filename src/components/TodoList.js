@@ -1,8 +1,12 @@
 import React from 'react';
 
 const TodoList = () =>{
+
+    const woo = () =>{
+        console.log('out');
+    }
     return (
-        <div>TodoList</div>
+        <input id="TodoItem" onBlur={woo}></input>
     )
 }
 

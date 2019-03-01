@@ -8,8 +8,12 @@ class App extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            groupname: 'default'
+            groupname: 'default',
+            todoList: [{group:'default', todo:'자기전에 운동하기'},{group:'default', todo:'양치질하고 자기'}]
         }
+    }
+    foo() {
+        document.getElementById('TodoItem').focus();
     }
     render() {
         return (
@@ -22,7 +26,7 @@ class App extends React.Component {
                         <div>
                             <GroupList></GroupList>
                         </div>
-                        <div>
+                        <div className='row align-items-end'>
                             <AddGroupBtn></AddGroupBtn>
                         </div>
                     </div>
@@ -30,9 +34,10 @@ class App extends React.Component {
                     <div className='col'>
                     <div className='groupname'>
                         {this.state.groupname}
+                        <button onClick={this.foo}>+</button>
                     </div>
                         <div>
-                            <TodoList></TodoList>
+                            <TodoList click={this.a}></TodoList>
                         </div>
                     </div>
                 </div>
