@@ -9,11 +9,29 @@ class App extends React.Component {
         super(props)
         this.state = {
             groupname: 'default',
-            todoList: [{group:'default', todo:'자기전에 운동하기'},{group:'default', todo:'양치질하고 자기'}]
+            nowId: 4,
+            todoList: [{id:1, group:'default', todo:'자기전에 운동하기'},
+                        {id:2, group:'default', todo:'양치질하고 자기'},
+                        {id:3, group: '가고싶은 곳', todo:'북한'}
+        ]
         }
+        this.makeTodo = this.makeTodo.bind(this);
     }
-    foo() {
+    handleTodoFocus() {
         document.getElementById('TodoItem').focus();
+    }
+
+    makeTodo(todo) {
+        let todoObj = {};
+        todoObj.id = this.state.nowId;
+        todoObj.group = this.state.groupname;
+        todoObj.todo = todo;
+        var clonedArray = JSON.parse(JSON.stringify(this.state.todoList));
+        clonedArray.push(todoObj);
+        this.setState({
+            todoList: clonedArray,
+            nowId: this.state.nowId +1
+        })
     }
     render() {
         return (
@@ -34,10 +52,10 @@ class App extends React.Component {
                     <div className='col'>
                     <div className='groupname'>
                         {this.state.groupname}
-                        <button onClick={this.foo}>+</button>
+                        <button onClick={this.handleTodoFocus}>+</button>
                     </div>
                         <div>
-                            <TodoList click={this.a}></TodoList>
+                            <TodoList MakeTodo={this.makeTodo} list={this.state.todoList} groupName={this.state.groupname}></TodoList>
                         </div>
                     </div>
                 </div>
