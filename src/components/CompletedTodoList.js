@@ -19,7 +19,6 @@ const CompletedTodoList = (props) => {
 
     return (
         <div>
-            <div># CompletedTodoList</div>
             {list}
 
         </div>

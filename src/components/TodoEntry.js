@@ -8,8 +8,8 @@ const TodoEntry = (props) => {
     }
     return (
         <div>
-            <input type='checkbox' onChange={handle}></input>
-            <input readOnly value={props.text}></input>
+            <input className='cbox' type='checkbox' onChange={handle}></input>
+            <input className='todo' readOnly value={props.text}></input>
         </div>
     )
 }

@@ -8,7 +8,6 @@ const GroupList = (props) => {
 
     return (
         <div>
-            <div># GroupList</div>
             {list}
         </div>
     )

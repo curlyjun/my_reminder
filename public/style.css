@@ -1,12 +1,110 @@
-#root{
-    background-color: aqua;
+.groupname{
+    font-size: xx-large;
+}
+.group{
+    background-color: rgb(246, 246, 246);
+    border: 0px;
+}
+.group:focus{
+    background-color: rgb(42, 140, 238);
+    color:white;
+}
+input{
+    outline: none;
+}
+.foo{
+    min-height: 800px;
+}
 
-    /* Set the height to match that of the viewport. */
-    height: 100vh;
+.todoinput{
+    border: 0px;
+    width: 600px;
+    margin-left: 23px;
+}
+.todoinput:focus{
+    border-bottom: 1px solid rgb(237, 237, 238);
+}
 
-    /* Set the width to match that of the viewport. */
-    width: 100vw;
+.todo{
+    border: 0px;
+    border-bottom: 1px solid rgb(237, 237, 238);
+    width: 600px;
+}
 
-    /* Remove any browser-default margins. */
-    margin: 0;
+.left-col{
+    border-right: 1px solid rgb(223,223,223);
+    background-color: rgb(246, 246, 246)
+}
+
+.addlist {
+    border: 0px;
+    background-color: rgb(246, 246, 246);
+
+}
+
+.search{
+    border-radius: 5px;
+    background-color: rgb(214,214,214);
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: start;
+}
+.searchimg{
+    width: 25px;
+}
+.plusbtn{
+    width: 30px;
+    height: 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-family: serif;
+}
+
+.cbox {
+    margin-right: 10px;
+  }
+
+
+
+/* Checkbox Icons */
+label {
+    position: relative;
+    padding-left: 30px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #fff;
+    padding: 16px 28px 0 0;
+}
+ 
+label:before, label:after {
+    font-family: FontAwesome;
+    font-size: 50px;
+    /*absolutely positioned*/
+    position: absolute; top: 0; left: -49px; right: 10px;
+}
+
+label:before {
+    content: '\f096'; /*checkbox unchecked */
+}
+label:after {
+    content: '\f00c'; /*checkbox checked*/
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0.5;
+    font-size: 27px;
+   top: 16px;
+   left: -42px;
+   color: #f2ca27;
+ 
+-webkit-transition: all 0.50s;
+    -moz-transition: all 0.50s;
+    -o-transition: all 0.50s;
+     transition: all 0.50s;
+}
+
+/* Animating the Checkbox Icon */
+input[type="checkbox"]:checked + label:after {
+    max-width: 25px;
+    opacity: 1;
+    margin-right: 90px;
 }

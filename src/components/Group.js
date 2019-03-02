@@ -7,7 +7,7 @@ const Group = (props) => {
     }
     return(
         <div>
-        <input readOnly value={props.name} onClick= {handleSelect}></input>
+        <input className="group" readOnly value={props.name} onClick= {handleSelect}></input>
         </div>
     )
 }

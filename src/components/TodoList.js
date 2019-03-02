@@ -21,9 +21,8 @@ const TodoList = (props) => {
 
     return (
         <div>
-            <div># TodoList</div>
             {list}
-            <input onKeyDown={handleMakeTodo} id="TodoItem" onBlur={handleMakeTodo}></input>
+            <input className='todoinput' onKeyDown={handleMakeTodo} id="TodoItem" onBlur={handleMakeTodo}></input>
 
         </div>
     )
