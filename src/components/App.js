@@ -4,7 +4,7 @@ import Search from './Search.js'
 import TodoList from './TodoList.js'
 import AddGroupBtn from './AddGroupBtn.js'
 import AddGroupInput from './AddGroupInput.js'
-import CompletedList from './CompletedList.js'
+import CompletedTodoList from './CompletedTodoList.js'
 
 class App extends React.Component {
     constructor(props) {
@@ -27,7 +27,7 @@ class App extends React.Component {
     }
     listnum = 2;
     handleTodoFocus() {
-        document.getElementById('TodoItem').focus();
+        document.getElementById('TodoItem') && document.getElementById('TodoItem').focus();
     }
     handleAddGroup() {
         this.setState({
@@ -35,7 +35,7 @@ class App extends React.Component {
         })
     }
     handleSaveGroup(gName) {
-        if(!gName.includes('새로운 목록')){
+        if (!gName.includes('새로운 목록')) {
             console.log(gName);
             this.listnum--;
         }
@@ -46,7 +46,7 @@ class App extends React.Component {
             groupname: gName,
             groups: clonedArray,
             toggle: false,
-            
+
         })
     }
     makeTodo(todo) {
@@ -61,30 +61,34 @@ class App extends React.Component {
             nowId: this.state.nowId + 1
         })
     }
-    changeGroup(groupname){
+    changeGroup(groupname) {
         this.setState({
-            groupname: groupname
+            groupname: groupname,
+            toggle_for_completed: false
         })
     }
-    completedUpdate(id){
+    completedUpdate(id) {
         let clonedArray = JSON.parse(JSON.stringify(this.state.todoList));
         let completedData = null;
-        for(let i = 0 ; i < clonedArray.length; i++){
-            if(clonedArray[i].id === id){
-                completedData = clonedArray.splice(i,1);
+        for (let i = 0; i < clonedArray.length; i++) {
+            if (clonedArray[i].id === id) {
+                //splice하면 배열로 반환된다....
+                completedData = clonedArray.splice(i, 1);
                 break;
             }
         }
-
+        let clonedCompletedArray = JSON.parse(JSON.stringify(this.state.completedList));
+        clonedCompletedArray.push(completedData[0]);
         this.setState({
             todoList: clonedArray,
-            completedList: completedData
+            completedList: clonedCompletedArray
         })
-        
+
     }
-    toggleChange(){
+    toggleChange() {
         this.setState({
-            toggle_for_completed: !this.state.toggle_for_completed
+            toggle_for_completed: true,
+            groupname: '완료 목록',
         })
     }
     render() {
@@ -96,14 +100,14 @@ class App extends React.Component {
                             <Search></Search>
                         </div>
                         <div>
-                            <CompletedList 
-                            completedTogleChange = {this.toggleChange}></CompletedList>
+                            <div># CompletedList</div>
+                            <input onClick={this.toggleChange} value="완료 목록" readOnly></input>
                         </div>
                         <div id="GList">
-                            <GroupList 
+                            <GroupList
                                 groups={this.state.groups}
-                                event={this.changeGroup}/>
-                            {this.state.toggle && <AddGroupInput event={this.handleSaveGroup} num={this.listnum++}/>}
+                                event={this.changeGroup} />
+                            {this.state.toggle && <AddGroupInput event={this.handleSaveGroup} num={this.listnum++} />}
                         </div>
                         <div className='row align-items-end'>
                             <AddGroupBtn clickEvent={this.handleAddGroup}></AddGroupBtn>
@@ -114,15 +118,19 @@ class App extends React.Component {
                         <div className='groupname'>
                             {this.state.groupname}
                             {/* +버튼 */}
-                        <button onClick={this.handleTodoFocus}>+</button>
+                            <button onClick={this.handleTodoFocus}>+</button>
                         </div>
                         <div>
-                            {this.state.toggle_for_completed?<CompleteTodoList /> :<TodoList 
-                                MakeTodo={this.makeTodo}
-                                list={this.state.todoList}
-                                groupName={this.state.groupname}
-                                fnCompleted={this.completedUpdate} />}
-                            
+                            {this.state.toggle_for_completed ?
+                                <CompletedTodoList
+                                    list={this.state.completedList} />
+                                :
+                                <TodoList
+                                    MakeTodo={this.makeTodo}
+                                    list={this.state.todoList}
+                                    groupName={this.state.groupname}
+                                    fnCompleted={this.completedUpdate} />}
+
                         </div>
                     </div>
                 </div>
