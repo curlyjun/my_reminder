@@ -6,10 +6,15 @@ const TodoEntry = (props) => {
             props.fnCompleted(props.id);
         }
     }
+    const foo = (e) =>{
+        if(e.keyCode === 8){
+
+        }
+    }
     return (
         <div>
             <input className='cbox' type='checkbox' onChange={handle}></input>
-            <input className='todo' readOnly value={props.text}></input>
+            <input className='todo' readOnly value={props.text} onKeyDown={foo}></input>
         </div>
     )
 }
