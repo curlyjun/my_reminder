@@ -5,11 +5,11 @@ const Group = (props) => {
     const handleSelect = (e) => {
         props.event(e.target.value)
     }
-    return(
+    return (
         <div>
-        <input className="group" readOnly value={props.name} onClick= {handleSelect}></input>
+            <input className="group" readOnly value={props.name} onClick={handleSelect}></input>
         </div>
     )
 }
 
-export default Group ;
+export default Group;
