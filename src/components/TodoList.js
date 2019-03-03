@@ -1,5 +1,6 @@
 import React from 'react';
-import TodoEntry from './TodoEntry'
+import TodoEntry from './TodoEntry.js'
+import CompletedTodoEntry from './CompletedTodoEntry.js'
 
 const TodoList = (props) => {
 
@@ -13,21 +14,33 @@ const TodoList = (props) => {
 
         e.target.value = "";
     }
-    const list = props.list ? props.list.map((todoObj => {
-        if (todoObj.group === props.groupName) {
-            return (<TodoEntry 
-                    key={todoObj.id} 
-                    text={todoObj.todo} 
-                    id={todoObj.id} 
-                    fnCompleted = {props.fnCompleted}
-                    deleteTodo = {props.deleteTodo}/>)
+    const list = (() => {
+        if (props.selected === 'group') {
+            return props.list.map((todoObj => {
+                if (todoObj.group === props.groupName) {
+                    return (<TodoEntry
+                        key={todoObj.id}
+                        text={todoObj.todo}
+                        id={todoObj.id}
+                        fnCompleted={props.fnCompleted}
+                        deleteTodo={props.deleteTodo} />)
+                }
+            }
+            ))
+        } else if (props.selected === 'completed') {
+            return props.clist.map((todoObj => {
+                return <CompletedTodoEntry key={todoObj.id} todoObj={todoObj} />
+            }))
+        } else {
+            return;
         }
-    })) : undefined;
+    })();
 
     return (
         <div>
             {list}
-            <input className='todoinput' onKeyDown={handleMakeTodo} id="TodoItem" onBlur={handleMakeTodo}></input>
+            {props.selected === 'group' && <input className='todoinput' onKeyDown={handleMakeTodo} id="TodoItem" onBlur={handleMakeTodo}></input>}
+
 
         </div>
     )

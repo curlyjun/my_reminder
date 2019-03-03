@@ -3,7 +3,6 @@ import GroupList from './GroupList.js'
 import Search from './Search.js'
 import TodoList from './TodoList.js'
 import AddGroupInput from './AddGroupInput.js'
-import CompletedTodoList from './CompletedTodoList.js'
 
 class App extends React.Component {
     constructor(props) {
@@ -15,7 +14,7 @@ class App extends React.Component {
             todoList: [],
             completedList: [],
             toggle: false,
-            toggle_for_completed: false
+            seletedListName: 'group'
         }
         this.makeTodo = this.makeTodo.bind(this);
         this.handleAddGroup = this.handleAddGroup.bind(this);
@@ -64,7 +63,7 @@ class App extends React.Component {
     changeGroup(groupname) {
         this.setState({
             groupname: groupname,
-            toggle_for_completed: false
+            seletedListName: 'group'
         })
     }
     completedUpdate(id) {
@@ -87,15 +86,15 @@ class App extends React.Component {
     }
     toggleChange() {
         this.setState({
-            toggle_for_completed: true,
+            seletedListName: 'completed',
             groupname: '완료 목록',
         })
     }
-    deleteTodo(id){
+    deleteTodo(id) {
         let clonedArray = JSON.parse(JSON.stringify(this.state.todoList));
-        for(let i = 0 ; i < clonedArray.length; i++){
-            if(clonedArray[i].id === id){
-                clonedArray.splice(i,1);
+        for (let i = 0; i < clonedArray.length; i++) {
+            if (clonedArray[i].id === id) {
+                clonedArray.splice(i, 1);
                 break;
             }
         }
@@ -138,16 +137,14 @@ class App extends React.Component {
                             </div>
                         </div>
                         <div>
-                            {this.state.toggle_for_completed ?
-                                <CompletedTodoList
-                                    list={this.state.completedList} />
-                                :
-                                <TodoList
-                                    MakeTodo={this.makeTodo}
-                                    list={this.state.todoList}
-                                    groupName={this.state.groupname}
-                                    fnCompleted={this.completedUpdate}
-                                    deleteTodo  ={this.deleteTodo} />}
+                            <TodoList
+                                selected={this.state.seletedListName}
+                                MakeTodo={this.makeTodo}
+                                list={this.state.todoList}
+                                clist={this.state.completedList}
+                                groupName={this.state.groupname}
+                                fnCompleted={this.completedUpdate}
+                                deleteTodo={this.deleteTodo} />
                         </div>
                     </div>
                 </div>
