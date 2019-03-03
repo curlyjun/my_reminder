@@ -30,7 +30,9 @@ input{
     border-bottom: 1px solid rgb(237, 237, 238);
     width: 600px;
 }
-
+.todo:focus{
+    background-color: rgb(240,240,240)
+}
 .left-col{
     border-right: 1px solid rgb(223,223,223);
     background-color: rgb(246, 246, 246)
