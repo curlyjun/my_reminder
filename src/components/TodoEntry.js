@@ -6,15 +6,15 @@ const TodoEntry = (props) => {
             props.fnCompleted(props.id);
         }
     }
-    const foo = (e) =>{
+    const handleDeleteEvent = (e) =>{
         if(e.keyCode === 8){
-
+            props.deleteTodo(props.id)
         }
     }
     return (
         <div>
             <input className='cbox' type='checkbox' onChange={handle}></input>
-            <input className='todo' readOnly value={props.text} onKeyDown={foo}></input>
+            <input className='todo' readOnly value={props.text} onKeyDown={handleDeleteEvent}></input>
         </div>
     )
 }

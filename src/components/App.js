@@ -23,6 +23,7 @@ class App extends React.Component {
         this.changeGroup = this.changeGroup.bind(this);
         this.completedUpdate = this.completedUpdate.bind(this);
         this.toggleChange = this.toggleChange.bind(this);
+        this.deleteTodo = this.deleteTodo.bind(this);
     }
     listnum = 2;
     handleTodoFocus() {
@@ -90,6 +91,18 @@ class App extends React.Component {
             groupname: '완료 목록',
         })
     }
+    deleteTodo(id){
+        let clonedArray = JSON.parse(JSON.stringify(this.state.todoList));
+        for(let i = 0 ; i < clonedArray.length; i++){
+            if(clonedArray[i].id === id){
+                clonedArray.splice(i,1);
+                break;
+            }
+        }
+        this.setState({
+            todoList: clonedArray
+        })
+    }
     render() {
         return (
             <div className='container no-gutters'>
@@ -133,7 +146,8 @@ class App extends React.Component {
                                     MakeTodo={this.makeTodo}
                                     list={this.state.todoList}
                                     groupName={this.state.groupname}
-                                    fnCompleted={this.completedUpdate} />}
+                                    fnCompleted={this.completedUpdate}
+                                    deleteTodo  ={this.deleteTodo} />}
                         </div>
                     </div>
                 </div>
